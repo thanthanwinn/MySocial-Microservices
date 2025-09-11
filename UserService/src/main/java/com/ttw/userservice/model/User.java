@@ -9,13 +9,15 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 public class User{
     @Id
-    private String user_id;
+    private UUID user_id;
 
     private String username;
     private String email;
