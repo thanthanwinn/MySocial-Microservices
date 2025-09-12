@@ -19,7 +19,6 @@ public class Profile {
     private String display_name;
     private String user_bio;
     private String user_img;
-    private Profile profile;
     @ElementCollection
     @CollectionTable(name = "user_interests")
     private Set<String> interests = new HashSet<String>();

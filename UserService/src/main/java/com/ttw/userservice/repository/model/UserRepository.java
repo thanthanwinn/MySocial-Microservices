@@ -6,4 +6,7 @@ import com.ttw.userservice.repository.BaseRepository;
 import java.util.UUID;
 
 public interface UserRepository extends BaseRepository<User, UUID> {
+    boolean findUserByUsername(String username);
+
+    boolean findUserByEmail(String email);
 }
