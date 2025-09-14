@@ -16,13 +16,12 @@ import java.util.UUID;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long post_id;
+    private long postId;
     private String content;
-    private String author_UUID;
+    private UUID authorUUID;
     @Enumerated(EnumType.STRING)
     private Visibility visibility;
-    private LocalDateTime created_at;
-    private LocalDateTime updated_at;
+    private LocalDateTime createdAt;
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Comment> comments;
 

@@ -9,4 +9,7 @@ public interface BlockRepository extends BaseRepository<Block, Long> {
 
     boolean existsBySubjectIdAndObjectId(UUID subjectId, UUID objectId);
 
+    Block findBySubjectIdAndObjectId(UUID subjectId, UUID objectId);
+
+
 }

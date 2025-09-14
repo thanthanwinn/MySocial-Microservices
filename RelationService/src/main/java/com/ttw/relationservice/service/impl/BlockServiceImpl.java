@@ -28,6 +28,7 @@ public class BlockServiceImpl implements BlockService {
         blockRepository.save(block);
     }
     public void unblock(UUID objectId){
-
+       Block block =  blockRepository.findBySubjectIdAndObjectId(subjectId,objectId);
+       blockRepository.delete(block);
     }
 }
