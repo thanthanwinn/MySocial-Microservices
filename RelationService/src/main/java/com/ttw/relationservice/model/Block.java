@@ -17,9 +17,9 @@ public class Block {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private UUID subject_id;
+    private long subjectId;
 
-    private UUID object_id;
+    private long objectId;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 }

@@ -3,13 +3,13 @@ package com.ttw.relationservice.repository.model;
 import com.ttw.relationservice.model.Block;
 import com.ttw.relationservice.repository.BaseRepository;
 
-import java.util.UUID;
+
 
 public interface BlockRepository extends BaseRepository<Block, Long> {
 
-    boolean existsBySubjectIdAndObjectId(UUID subjectId, UUID objectId);
+    boolean existsBySubjectIdAndObjectId(long subjectId, long objectId);
 
-    Block findBySubjectIdAndObjectId(UUID subjectId, UUID objectId);
+    Block findBySubjectIdAndObjectId(long subjectId, long objectId);
 
 
 }

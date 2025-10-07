@@ -8,4 +8,8 @@ public class UserValidationException extends UserBaseException {
     public UserValidationException(List<String> messages) {
         super(messages);
     }
+    @Override
+    public String getMessage() {
+        return getMessage();
+    }
 }

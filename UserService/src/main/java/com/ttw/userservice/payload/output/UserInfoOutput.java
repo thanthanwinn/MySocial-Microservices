@@ -1,12 +1,14 @@
 package com.ttw.userservice.payload.output;
 
 import com.ttw.userservice.model.User;
+import lombok.Data;
+import lombok.Getter;
 
 import java.util.Set;
 import java.util.UUID;
 
 public record UserInfoOutput(
-        UUID user_id,
+        long user_id,
         String username,
         String email,
         Integer age,

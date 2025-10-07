@@ -14,14 +14,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse<Object>> handleBusinessException(UserBusinessException ex) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body(ApiResponse.failure(ex.getMessage()));
+                .body(ApiResponse.failure(ex.getMessage(),null));
     }
 
     @ExceptionHandler(UserValidationException.class)
-    public ResponseEntity<ApiResponse<Object>> handleValidationException(UserValidationException ex) {
+    public ResponseEntity<Object> handleValidationException(UserValidationException ex) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body(ApiResponse.failure(ex.getMessage()));
+                .body(ApiResponse.failure(ex.getMessage(),null));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -34,8 +34,9 @@ public class GlobalExceptionHandler {
                 .findFirst()
                 .orElse("Invalid input");
 
+        Object Object = null;
         return ResponseEntity
                 .badRequest()
-                .body(ApiResponse.failure(errorMessage));
+                .body(ApiResponse.failure(errorMessage,null));
     }
 }

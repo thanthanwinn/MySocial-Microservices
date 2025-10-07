@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
+
 
 
 @Service
@@ -19,27 +19,27 @@ import java.util.UUID;
 public class FriendShipServiceImpl implements FriendShipService {
 
     private final FriendRepository friendRepository;
-    private UUID subjectId = UUID.randomUUID();
+    private long subjectId = 0;
 
-    private Friendship getFriendshipOrThrow( UUID objectId) {
+    private Friendship getFriendshipOrThrow( long objectId) {
         return friendRepository.findFriendship(subjectId, objectId)
                 .orElseThrow(() -> new RelationException("No relation found"));
     }
 
-    public void sendRequest( UUID objectId) {
+    public void sendRequest( long objectId) {
         friendRepository.findFriendship(subjectId, objectId).ifPresent(f -> {
             throw new RelationException("Relation already exists: " + f.getStatus());
         });
 
         Friendship friendship = new Friendship();
-        friendship.setSubject_id(subjectId);
-        friendship.setObject_id(objectId);
+        friendship.setSubjectId(subjectId);
+        friendship.setObjectId(objectId);
         friendship.setStatus(Friendship.FriendshipStatus.REQUESTED);
         friendship.setCreatedAt(LocalDateTime.now());
         friendRepository.save(friendship);
     }
 
-    public void acceptRequest( UUID objectId) {
+    public void acceptRequest( long objectId) {
         Friendship f = getFriendshipOrThrow( objectId);
         if (f.getStatus() != Friendship.FriendshipStatus.REQUESTED) {
             throw new RelationException("No pending request to accept");
@@ -47,7 +47,7 @@ public class FriendShipServiceImpl implements FriendShipService {
         f.setStatus(Friendship.FriendshipStatus.ACCEPTED);
     }
 
-    public void cancelRequest( UUID objectId) {
+    public void cancelRequest( long objectId) {
         Friendship f = getFriendshipOrThrow( objectId);
         if (f.getStatus() != Friendship.FriendshipStatus.REQUESTED) {
             throw new RelationException("No pending request to cancel");
@@ -55,7 +55,7 @@ public class FriendShipServiceImpl implements FriendShipService {
         friendRepository.delete(f);
     }
 
-    public void unfriend( UUID objectId) {
+    public void unfriend( long objectId) {
         Friendship f = getFriendshipOrThrow( objectId);
         if (f.getStatus() != Friendship.FriendshipStatus.ACCEPTED) {
             throw new RelationException("Not friends");
@@ -63,11 +63,11 @@ public class FriendShipServiceImpl implements FriendShipService {
         friendRepository.delete(f);
     }
 
-    public boolean areFriends(UUID subjectId, UUID objectId) {
+    public boolean areFriends(long subjectId, long objectId) {
         return friendRepository.areFriends(subjectId, objectId);
     }
 
-    public List<UUID> getPendingRequests(UUID myId) {
+    public List<Long> getPendingRequests(long myId) {
         return friendRepository.findFriendRequestsSentTo(myId);
     }
 }

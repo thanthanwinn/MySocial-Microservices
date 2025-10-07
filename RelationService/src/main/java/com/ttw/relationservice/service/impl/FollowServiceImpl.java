@@ -10,17 +10,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class FollowServiceImpl implements FollowService {
     private final FollowRepository followRepository;
-    private UUID subjectId = UUID.randomUUID();
+    private long subjectId = 0;
 
-    public void follow( UUID objectId) {
-        if (subjectId.equals(objectId)) {
+    public void follow( long objectId) {
+        if (subjectId == objectId) {
             throw new RelationException("You cannot follow yourself");
         }
         if (followRepository.existsFollow(subjectId, objectId)) {
@@ -28,27 +27,27 @@ public class FollowServiceImpl implements FollowService {
         }
 
         Follow follow = new Follow();
-        follow.setSubject_id(subjectId);
-        follow.setObject_id(objectId);
+        follow.setSubjectId(subjectId);
+        follow.setObjectId(objectId);
         follow.setCreatedAt(LocalDateTime.now());
         followRepository.save(follow);
     }
 
-    public void unfollow( UUID objectId) {
+    public void unfollow( long objectId) {
         Follow follow = followRepository.findFollow(subjectId, objectId)
                 .orElseThrow(() -> new RelationException("Not following this user"));
         followRepository.delete(follow);
     }
 
-    public boolean isFollowing(UUID objectId) {
+    public boolean isFollowing(long objectId) {
         return followRepository.existsFollow(subjectId, objectId);
     }
 
-    public List<UUID> getFollowers(UUID userId) {
+    public List<Long> getFollowers(long userId) {
         return followRepository.findFollowers(userId);
     }
 
-    public List<UUID> getFollowing(UUID userId) {
+    public List<Long> getFollowing(long userId) {
         return followRepository.findFollowing(userId);
     }
 }
