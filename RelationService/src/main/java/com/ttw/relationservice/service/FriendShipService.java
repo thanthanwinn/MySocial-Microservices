@@ -1,12 +1,15 @@
 package com.ttw.relationservice.service;
 
+
+import com.ttw.relationservice.payload.output.RelationInfoOutput;
+
 import java.util.List;
 
 public interface FriendShipService {
-    void sendRequest(long objectId);
-    void acceptRequest(long objectId);
-    void cancelRequest(long objectId);
-    void unfriend(long objectId);
+    String sendRequest(long subjectId,long objectId);
+    String acceptRequest(long subjectId,long objectId);
+    String cancelRequest(long subjectId,long objectId);
+    String unfriend(long subjectId,long objectId);
     boolean areFriends(long subjectId, long objectId);
-    List<Long> getPendingRequests(long myId);
+    List<RelationInfoOutput> getPendingRequests(long myId);
 }

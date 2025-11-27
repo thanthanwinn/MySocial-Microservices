@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @RestController
@@ -39,9 +40,13 @@ public class UserController {
             return ResponseEntity.badRequest().body(ApiResponse.failure(e.getMessage(), e.getMessage()));
         }
     }
+    
     @PutMapping("/updateProfile")
     public ResponseEntity<ApiResponse<UserInfoOutput>> upddateProfile(@RequestParam("userId") Long userId,@RequestBody UpdateProfileInput input) {
       return ResponseEntity.ok(ApiResponse.success(userService.updateProfile(userId,input)));
     }
+    
+    
+    
 
 }

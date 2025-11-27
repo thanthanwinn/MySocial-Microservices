@@ -1,10 +1,12 @@
 package com.ttw.relationservice.repository;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
-@EnableJpaRepositories(repositoryBaseClass = BaseRepositoryImpl.class)
+@Configuration
+@EnableJpaRepositories(repositoryBaseClass = BaseRepositoryImpl.class,
+basePackages = "com.ttw.relationservice.repository.model")
 public class RepositoryConfiguration {
 
 

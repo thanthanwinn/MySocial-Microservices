@@ -12,7 +12,7 @@ public interface FollowRepository extends BaseRepository<Follow,Long> {
     @Query("""
         SELECT CASE WHEN COUNT(f) > 0 THEN true ELSE false END
         FROM Follow f
-        WHERE f.subject_id = :followerId AND f.object_id = :followingId
+        WHERE f.subjectId = :followerId AND f.objectId = :followingId
     """)
     boolean existsFollow(@Param("followerId") long followerId,
                          @Param("followingId") long followingId);
@@ -20,22 +20,22 @@ public interface FollowRepository extends BaseRepository<Follow,Long> {
     @Query("""
         SELECT f
         FROM Follow f
-        WHERE f.subject_id = :followerId AND f.object_id = :followingId
+        WHERE f.subjectId = :followerId AND f.objectId = :followingId
     """)
     Optional<Follow> findFollow(@Param("followerId") long followerId,
                                 @Param("followingId") long followingId);
 
     @Query("""
-        SELECT f.object_id
+        SELECT f.objectId
         FROM Follow f
-        WHERE f.subject_id = :followerId
+        WHERE f.subjectId = :followerId
     """)
     List<Long> findFollowing(@Param("followerId") long followerId);
 
     @Query("""
-        SELECT f.subject_id
+        SELECT f.subjectId
         FROM Follow f
-        WHERE f.object_id = :followingId
+        WHERE f.objectId = :followingId
     """)
     List<Long> findFollowers(@Param("followingId") long followingId);
 

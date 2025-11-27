@@ -17,8 +17,8 @@ import java.util.List;
 public class FollowServiceImpl implements FollowService {
     private final FollowRepository followRepository;
     private long subjectId = 0;
-
-    public void follow( long objectId) {
+    @Override
+    public void follow(long subjectId, long objectId) {
         if (subjectId == objectId) {
             throw new RelationException("You cannot follow yourself");
         }
@@ -33,15 +33,18 @@ public class FollowServiceImpl implements FollowService {
         followRepository.save(follow);
     }
 
-    public void unfollow( long objectId) {
+    @Override
+    public void unfollow(long subjectId, long objectId) {
         Follow follow = followRepository.findFollow(subjectId, objectId)
                 .orElseThrow(() -> new RelationException("Not following this user"));
         followRepository.delete(follow);
     }
 
-    public boolean isFollowing(long objectId) {
+    @Override
+    public boolean isFollowing(long subjectId, long objectId) {
         return followRepository.existsFollow(subjectId, objectId);
     }
+
 
     public List<Long> getFollowers(long userId) {
         return followRepository.findFollowers(userId);

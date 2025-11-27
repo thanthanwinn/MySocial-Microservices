@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: relationservice
+  datasource:
+    username: root
+    password: admin
+    url: jdbc:mysql://localhost:3306/social
+  jpa:
+    hibernate:
+      ddl-auto: update
